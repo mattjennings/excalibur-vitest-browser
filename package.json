@@ -1,0 +1,26 @@
+{
+  "name": "excalibur-vite-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "prepare": "excalibur-resources generate",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@vitest/browser": "^1.4.0",
+    "excalibur": "^0.29.1",
+    "playwright": "^1.42.1",
+    "prettier": "^3.1.1",
+    "typescript": "^5.2.2",
+    "unplugin-auto-import": "^0.17.2",
+    "vite": "^5.0.8",
+    "vite-plugin-excalibur-hmr": "^0.0.2",
+    "vite-plugin-excalibur-resources": "^0.2.0",
+    "vitest": "^1.4.0",
+    "webdriverio": "^8.35.1"
+  }
+}
