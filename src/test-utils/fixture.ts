@@ -57,10 +57,12 @@ export const test = base.extend<{
     await game.goToScene('_')
     game.removeScene('test')
   },
-  dispatchKeyEvent: async ({}, use) => {
+  dispatchKeyEvent: async ({ game }, use) => {
     await use((type, code) => {
       window.top?.dispatchEvent(new KeyboardEvent(type, { code }))
     })
+    // @ts-ignore - clear keyboard state
+    game.input.keyboard.update()
   },
   clock: async ({ game }, use) => {
     const testClock = game.debug.useTestClock()

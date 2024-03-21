@@ -2,9 +2,11 @@ import { test, expect, beforeEach, describe } from '@/test-utils/fixture'
 import Player from './player'
 import { waitFor } from '@/test-utils/wait'
 
-const player = new Player(100, 100)
+let player: Player
+
 class TestScene extends ex.Scene {
   onInitialize(): void {
+    player = new Player(100, 100)
     this.add(player)
   }
 }
@@ -17,27 +19,18 @@ test('is added to scene', async ({ scene }) => {
   expect(scene.actors).toContain(player)
 })
 
-test('can move right', async ({ game, dispatchKeyEvent }) => {
+test('can move right', async ({ clock, dispatchKeyEvent }) => {
   dispatchKeyEvent('keydown', 'ArrowRight')
 
-  await waitFor(() => {
-    return player.pos.x >= 102
-  })
+  clock.step(100)
 
-  dispatchKeyEvent('keyup', 'ArrowRight')
+  expect(player.pos.x).toBe(102)
 })
 
-describe('using debug clock', () => {
-  test('can move right using debug clock', async ({
-    clock,
-    dispatchKeyEvent,
-  }) => {
-    dispatchKeyEvent('keydown', 'ArrowRight')
+test('can move left', async ({ clock, dispatchKeyEvent }) => {
+  dispatchKeyEvent('keydown', 'ArrowLeft')
 
-    clock.step(100)
+  clock.step(100)
 
-    expect(player.pos.x).toBe(106)
-
-    dispatchKeyEvent('keyup', 'ArrowRight')
-  })
+  expect(player.pos.x).toBe(98)
 })
