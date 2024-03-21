@@ -10,6 +10,7 @@ export const test = base.extend<{
   game: ex.Engine<string>
   scene: ex.Scene
   loader: ex.Loader
+  clock: ex.TestClock
 
   useScene: (scene: typeof ex.Scene) => Promise<ex.Scene>
   dispatchKeyEvent: (type: string, key: string) => void
@@ -61,6 +62,11 @@ export const test = base.extend<{
       window.top?.dispatchEvent(new KeyboardEvent(type, { code }))
     })
   },
+  clock: async ({ game }, use) => {
+    const testClock = game.debug.useTestClock()
+    await use(testClock)
+    game.debug.useStandardClock()
+  },
 })
 
 export {
@@ -77,6 +83,7 @@ declare module 'vitest' {
     game: ex.Engine<string>
     scene: ex.Scene
     loader: ex.Loader
+    clock: ex.TestClock
     useScene: (scene: typeof ex.Scene) => Promise<ex.Scene>
     dispatchKeyEvent: (type: string, key: string) => void
   }
